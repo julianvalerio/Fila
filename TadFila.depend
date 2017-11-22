@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1511376942 source:c:\users\julian\documents\c++ workspace\tadfila\fila.cpp
+	"Fila.h"
+	<stdlib.h>
+	<iostream>
+
+1511376948 c:\users\julian\documents\c++ workspace\tadfila\fila.h
+
