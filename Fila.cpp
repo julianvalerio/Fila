@@ -7,6 +7,7 @@ using namespace std;
 struct fila
 {
     int info;
+    bool prioridade;
     struct fila *prox;
 };
 Fila* fila_cria(void)
@@ -14,22 +15,43 @@ Fila* fila_cria(void)
     return NULL;
 }
 
-Fila* fila_insere(Fila *f, int i){
+Fila* verifica_prioridade(Fila *f, int i, bool prioridade){
+    if (prioridade){
+        f = fila_insere_prioridade(f, i, prioridade);
+        return f;
+    }
+    f = fila_insere(f, i, prioridade);
+    return f;
+}
+
+Fila* fila_insere(Fila *f, int i, bool prioridade){
     Fila* novo = (Fila*) malloc(sizeof(Fila));
     novo -> info = i;
     if(fila_vazia(f)){
         f = novo;
+        novo -> prox = NULL;
+        return f;
+    }else{
+        Fila *aux=f;
+        while(aux->prox != NULL){
+            aux = aux->prox;
+        }
+        aux -> prox = novo;
+        novo -> prox = NULL;
         return f;
     }
-    Fila *aux=f;
-    Fila *ant=NULL;
-    while(aux != NULL){
-        ant = aux;
-        aux = aux->prox;
-    }
-    ant -> prox = novo;
-    novo -> prox = aux;
-    return f;
+}
+
+Fila* fila_insere_prioridade(Fila *f, int i, bool prioridade){
+    Fila* novo = (Fila*) malloc(sizeof(Fila));
+    novo -> info = i;
+    if(fila_vazia(f)){
+        f = novo;
+        novo -> prox = NULL;
+        return f;
+    }else
+        novo -> prox = f;
+        return novo;
 }
 
 void fila_imprime(Fila* f){
